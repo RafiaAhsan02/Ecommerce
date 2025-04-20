@@ -119,9 +119,13 @@
                                 <ul class="mini-cart-drop-down ha-dropdown">
                                     @php
                                         $cartItems = session()->get('cart', []);
+                                        $total = 0;
                                     @endphp
                                     <h3 class="mb-3">In Cart:</h3>
                                     @forelse ($cartItems as $key => $item)
+                                        @php
+                                            $total += $item['price'] * $item['quantity'];
+                                        @endphp
                                         <li class="mb-15">
                                             <div class="cart-img col-2">
                                                 <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}">
