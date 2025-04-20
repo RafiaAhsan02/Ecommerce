@@ -56,12 +56,15 @@
                                                     @endphp
                                                     <tr>
                                                         <td>
-                                                            <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}" title="{{ $item['name'] }}" class="img-thumbnail">
+                                                        <a href="{{ route('product.detail', $item['slug']) }}">
+                                                            <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}" title="{{ $item['name'] }}" class="img-thumbnail"></a>
                                                         </td>
-                                                        <td> {{ $item['name'] }} </td>
+                                                        <td>
+                                                            <a href="{{ route('product.detail', $item['slug']) }}">{{ $item['name'] }}</a>
+                                                        </td>
                                                         <td>
                                                             <input type="hidden" name="product_id" value="{{ $key }}">
-                                                            <div class="d-flex">
+                                                            <div class="d-flex justify-center">
                                                                 <button type="submit" class="btn btn-sm btn-primary btn-decrement" data-id="{{ $key }}">-</button>
                                                                 <input type="number" name="quantity" data-id="{{ $key }}" value="{{ $item['quantity'] }}" class="form-control w-25 mx-2 quantity">
                                                                 <button type="submit" class="btn btn-sm btn-primary btn-increment" data-id="{{ $key }}">+</button>

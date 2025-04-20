@@ -564,7 +564,7 @@ input.top-cat-field {
     background-color: transparent;
 }
 
-.mini-cart-option li:hover a, .mini-cart-option li:hover button {
+.mini-cart-option li:hover button {
     color: #fedc19;
 }
 
@@ -607,14 +607,14 @@ input.top-cat-field {
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-left: 0;
     color: #111;
     font-weight: 500;
 }
 
 .cart-img {
-    margin-right: 20px;
+    margin-right: 16px;
     width: 60px;
 }
 

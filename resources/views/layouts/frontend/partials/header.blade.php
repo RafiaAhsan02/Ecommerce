@@ -40,7 +40,7 @@
                                         <a class="nav-link text-warning" href="{{ route('admin.dashboard') }}" target="_blank"
                                             role="button" aria-haspopup="true" aria-expanded="false" v-pre>Dashboard</a>
                                         <span class="text-warning"> | </span>
-                                    {{-- @elseif (Auth::user()->name == "Manager")
+                                        {{-- @elseif (Auth::user()->name == "Manager")
                                         <a class="nav-link text-warning" href="#" role="button" aria-haspopup="true"
                                             aria-expanded="false" v-pre>Dashboard</a>
                                         <span class="text-warning"> | </span> --}}
@@ -117,34 +117,36 @@
 
                                 {{-- Cart item dropdown --}}
                                 <ul class="mini-cart-drop-down ha-dropdown">
-                                    <li class="mb-30">
-                                        <div class="cart-img">
-                                            <a href="product-details.html"><img alt="" src="assets/img/cart/cart-1.jpg"></a>
-                                        </div>
-                                        <div class="cart-info">
-                                            <h4><a href="product-details.html">Koss Porta Pro On Ear Headphones </a>
-                                            </h4>
-                                            <span> <span>1 x </span>£165.00</span>
-                                        </div>
-                                        <div class="del-icon">
-                                            <i class="fa fa-times-circle"></i>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="subtotal-text">Sub-total: </div>
-                                        <div class="subtotal-price">£48.94</div>
-                                    </li>
-                                    <li>
-                                        <div class="subtotal-text">Eco Tax (-2.00): </div>
-                                        <div class="subtotal-price">£1.51</div>
-                                    </li>
-                                    <li>
-                                        <div class="subtotal-text">Vat (20%): </div>
-                                        <div class="subtotal-price">£9.79</div>
+                                    @php
+                                        $cartItems = session()->get('cart', []);
+                                    @endphp
+                                    <h3 class="mb-3">In Cart:</h3>
+                                    @forelse ($cartItems as $key => $item)
+                                        <li class="mb-15">
+                                            <div class="cart-img col-2">
+                                                <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}">
+                                            </div>
+                                            <div class="cart-info">
+                                                <h4><a href="{{ route('product.detail', $item['slug']) }}">{{ $item['name'] }}</a>
+                                                </h4>
+                                                <span> <span>{{ $item['quantity'] }} x
+                                                    </span>&#2547;{{ number_format($item['price']) }}</span>
+                                            </div>
+                                            <div class="del-icon">
+                                                <i class="fa fa-times-circle"></i>
+                                            </div>
+                                        </li>
+                                        <hr>
+                                    @empty
+                                    @endforelse
+
+                                    <li class="mb-1">
+                                        <div class="subtotal-text">Delivery: </div>
+                                        <div class="subtotal-price">&#2547;100</div>
                                     </li>
                                     <li>
                                         <div class="subtotal-text">Total: </div>
-                                        <div class="subtotal-price"><span>£60.24</span></div>
+                                        <div class="subtotal-price">&#2547;{{ number_format($total + 100) }}</div>
                                     </li>
                                     <li class="mt-30">
                                         <a class="cart-button" href="{{ route('cart.index') }}">View Cart</a>

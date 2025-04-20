@@ -177,7 +177,6 @@
                                                 </h4>
                                             </div>
                                             <div class="sinrato-product-des">
-                                                {{-- PROBLEM - description not showing in list view --}}
                                                 <p>{{ $product->short_description }}</p>
                                                 {{-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
                                                     voluptatibus similique placeat molestias quam incidunt necessitatibus! Rerum
