@@ -564,7 +564,7 @@ input.top-cat-field {
     background-color: transparent;
 }
 
-.mini-cart-option li:hover button {
+.mini-cart-option li:hover .ha-toggle {
     color: #fedc19;
 }
 
@@ -595,7 +595,6 @@ input.top-cat-field {
     display: none;
     z-index: 9999999999;
     background: #fff;
-    border-bottom: 2px solid #fedc19;
     -webkit-box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
@@ -607,10 +606,15 @@ input.top-cat-field {
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-left: 0;
     color: #111;
     font-weight: 500;
+}
+
+.mini-cart-drop-down>hr {
+    height: 2px;
+    background-color: #fedc19;
 }
 
 .cart-img {
@@ -1378,6 +1382,8 @@ nav.m-style3 {
     position: relative;
     margin-top: 24px;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .section-title h3 {
@@ -1404,7 +1410,7 @@ nav.m-style3 {
     height: 1px;
     position: absolute;
     top: 50%;
-    width: 100%;
+    width: 85%;
     left: 0;
     z-index: -1;
 }

@@ -67,9 +67,9 @@ class CartController extends Controller
 
     public function clear()
     {
-        //session()->forget('cart');
-        // notyf()->success('Cart cleared successfully.');
-        // return redirect()->back();
+        session()->forget('cart');
+        notyf()->success('Cart cleared successfully.');
+        return redirect()->back();
     }
 
 }

@@ -61,7 +61,7 @@ Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
   Route::post('/add', [CartController::class, 'store'])->name('add');
   Route::post('/update', [CartController::class, 'update'])->name('update');
   Route::delete('/{product_id}', [CartController::class, 'destroy'])->name('destroy');
-//   Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
+  Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
 
 /* Checkout Routes */

@@ -32,6 +32,12 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="section-title">
                                         <h3>Shopping Cart</h3>
+
+                                        <form action="{{ route('cart.clear') }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-warning" onclick="return confirm('Are you sure you want to clear the cart?')">Clear Cart</button>
+                                        </form>
                                     </div>
                                     <form action="#">
                                         <div class="table-responsive">
@@ -112,11 +118,7 @@
                                         <a href="{{ route('products') }}" class="btn btn-secondary">Continue Shopping</a>
                                         <a href="checkout.html" class="btn btn-secondary dark align-self-end">Checkout</a>
                                     </div>
-                                    {{-- <form action="{{ route('clear') }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn-cart" type="submit">Clear Cart</button>
-                                    </form> --}}
+                                    
                                 </div>
                             </div>
                         </div> <!-- end of shopping-cart -->

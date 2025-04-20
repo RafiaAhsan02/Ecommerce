@@ -104,14 +104,13 @@
                     <div class="mini-cart-option">
                         <ul>
                             <li class="wishlist">
-                                <a class="ha-toggle" href="wishlist.html"><span class="lnr lnr-heart"></span>
-                                    {{-- <span class="count">loop</span> for no. of items --}}
+                                <a class="ha-toggle" href="wishlist.html"><span class="count">1</span><span class="lnr lnr-heart"></span>
                                     Wishlist</a>
                             </li>
 
                             <li class="my-cart">
-                                <button type="button" class="ha-toggle"><span class="lnr lnr-cart"></span>
-                                    {{-- <span class="count">loop</span> for no. of items --}}
+                                {{-- column sum for item count? --}}
+                                <button type="button" class="ha-toggle"><span class="count">1</span><span class="lnr lnr-cart"></span>
                                     My Cart
                                 </button>
 
@@ -136,9 +135,13 @@
                                                 <span> <span>{{ $item['quantity'] }} x
                                                     </span>&#2547;{{ number_format($item['price']) }}</span>
                                             </div>
-                                            <div class="del-icon">
-                                                <i class="fa fa-times-circle"></i>
-                                            </div>
+
+                                            <form action="{{ route('cart.destroy', $key) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="product_id" value="{{ $key }}">
+                                                    <button type="submit" class="del-icon" title="Remove item" onclick="return confirm('Are you sure you want to remove this item from cart?')"><i class="fa fa-times-circle"></i></button>
+                                            </form>
                                         </li>
                                         <hr>
                                     @empty
