@@ -3887,6 +3887,10 @@ label {
     margin-top: 10px;
 }
 
+.checkout-head {
+    justify-content: space-between !important;
+}
+
 .checkout-wrapper .user-actions h3 {
     border-top: 3px solid #fedc19;
     font-size: 14px;

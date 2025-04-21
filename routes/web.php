@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\HomeProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\subCategoryController;
 
 // Route::get('/', function () {
@@ -21,8 +22,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 /* All Normal Users Routes List */
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* w/o login*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    /* Checkout Routes */
+    // Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* requires user login */
+    Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
 });
 
 
@@ -63,12 +67,6 @@ Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
   Route::delete('/{product_id}', [CartController::class, 'destroy'])->name('destroy');
   Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
-
-/* Checkout Routes */
-// Route::middleware(['auth', 'user-access:user'])->group(function () {
-// Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
-// Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
-// });
 
 /* SSLcommerz Routes */
 // Route::post('/success', [SslCommerzPaymentController::class, 'success'])->name('payment.success');

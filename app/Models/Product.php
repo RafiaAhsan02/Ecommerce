@@ -27,4 +27,9 @@ class Product extends Model
     public function scopeActive($query) {
         return $query->where('status', true);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withTimestamps();
+    }
 }

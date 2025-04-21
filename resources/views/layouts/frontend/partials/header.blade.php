@@ -33,17 +33,23 @@
                                         aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                     </a>
-
                                     <span class="text-warning"> | </span>
 
-                                    @if (Auth::user()->name == "Admin")
+                                    @if (Auth::user()->type == "user")
+                                        {{-- insert user profile/dashboard here --}}
+                                        <a class="nav-link text-warning" href="#" target="_blank"
+                                                role="button" aria-haspopup="true" aria-expanded="false" v-pre>Dashboard</a>
+                                            <span class="text-warning"> | </span>
+                                    
+                                    @elseif (Auth::user()->type == "admin")
                                         <a class="nav-link text-warning" href="{{ route('admin.dashboard') }}" target="_blank"
                                             role="button" aria-haspopup="true" aria-expanded="false" v-pre>Dashboard</a>
                                         <span class="text-warning"> | </span>
-                                        {{-- @elseif (Auth::user()->name == "Manager")
+                                        
+                                        @elseif (Auth::user()->type == "manager")
                                         <a class="nav-link text-warning" href="#" role="button" aria-haspopup="true"
                                             aria-expanded="false" v-pre>Dashboard</a>
-                                        <span class="text-warning"> | </span> --}}
+                                        <span class="text-warning"> | </span>
                                     @else
                                     @endif
 
@@ -66,6 +72,7 @@
     <div class="header-middle">
         <div class="container-fluid">
             <div class="row align-items-center">
+
                 <div class="col-lg-3 col-md-4 col-sm-4 col-12">
                     <div class="logo">
                         <a href="{{ route('home') }}"><img
@@ -104,62 +111,80 @@
                     <div class="mini-cart-option">
                         <ul>
                             <li class="wishlist">
-                                <a class="ha-toggle" href="wishlist.html"><span class="count">1</span><span class="lnr lnr-heart"></span>
-                                    Wishlist</a>
+                                <a class="ha-toggle" href="wishlist.html">
+                                    {{-- <span class="count">1</span> --}}
+                                    <span class="lnr lnr-heart"></span>
+                                    Wishlist
+                                </a>
                             </li>
 
+                            @php
+                                $cartItems = session()->get('cart', []);
+                            @endphp
                             <li class="my-cart">
-                                {{-- column sum for item count? --}}
-                                <button type="button" class="ha-toggle"><span class="count">1</span><span class="lnr lnr-cart"></span>
+                                <button type="button" class="ha-toggle">
+                                    @if (count($cartItems) > 0)
+                                        <span class="count">{{ count($cartItems) }}</span>
+                                        {{-- should do sum instead? --}}
+                                    @endif
+                                    <span class="lnr lnr-cart"></span>
                                     My Cart
                                 </button>
 
                                 {{-- Cart item dropdown --}}
                                 <ul class="mini-cart-drop-down ha-dropdown">
                                     @php
-                                        $cartItems = session()->get('cart', []);
                                         $total = 0;
                                     @endphp
                                     <h3 class="mb-3">In Cart:</h3>
-                                    @forelse ($cartItems as $key => $item)
-                                        @php
-                                            $total += $item['price'] * $item['quantity'];
-                                        @endphp
-                                        <li class="mb-15">
-                                            <div class="cart-img col-2">
-                                                <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}">
-                                            </div>
-                                            <div class="cart-info">
-                                                <h4><a href="{{ route('product.detail', $item['slug']) }}">{{ $item['name'] }}</a>
-                                                </h4>
-                                                <span> <span>{{ $item['quantity'] }} x
-                                                    </span>&#2547;{{ number_format($item['price']) }}</span>
-                                            </div>
+                                    @if (count($cartItems) > 0)
+                                        @forelse ($cartItems as $key => $item)
+                                            @php
+                                                $total += $item['price'] * $item['quantity'];
+                                            @endphp
+                                            <li class="mb-15">
+                                                <div class="cart-img col-2">
+                                                    <img src="{{ $item['image'] ?? '' }}" alt="Image of {{ $item['name'] }}">
+                                                </div>
+                                                <div class="cart-info">
+                                                    <h4><a href="{{ route('product.detail', $item['slug']) }}">{{ $item['name'] }}</a>
+                                                    </h4>
+                                                    <span> <span>{{ $item['quantity'] }} x
+                                                        </span>&#2547;{{ number_format($item['price']) }}</span>
+                                                </div>
 
-                                            <form action="{{ route('cart.destroy', $key) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="product_id" value="{{ $key }}">
-                                                    <button type="submit" class="del-icon" title="Remove item" onclick="return confirm('Are you sure you want to remove this item from cart?')"><i class="fa fa-times-circle"></i></button>
-                                            </form>
+                                                <form action="{{ route('cart.destroy', $key) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="product_id" value="{{ $key }}">
+                                                        <button type="submit" class="del-icon" title="Remove item" onclick="return confirm('Are you sure you want to remove this item from cart?')"><i class="fa fa-times-circle"></i></button>
+                                                </form>
+                                            </li>
+                                            <hr>
+                                        @empty
+                                        @endforelse
+
+                                        <li class="mb-1">
+                                            <div class="subtotal-text">Delivery: </div>
+                                            <div class="subtotal-price">&#2547;100</div>
                                         </li>
-                                        <hr>
-                                    @empty
-                                    @endforelse
+                                        <li>
+                                            <div class="subtotal-text">Total: </div>
+                                            <div class="subtotal-price">&#2547;{{ number_format($total + 100) }}</div>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <div class="">
+                                                <h5>There are no products in cart.</h5>
+                                            </div>
+                                        </li>
+                                    @endif
 
-                                    <li class="mb-1">
-                                        <div class="subtotal-text">Delivery: </div>
-                                        <div class="subtotal-price">&#2547;100</div>
-                                    </li>
-                                    <li>
-                                        <div class="subtotal-text">Total: </div>
-                                        <div class="subtotal-price">&#2547;{{ number_format($total + 100) }}</div>
-                                    </li>
                                     <li class="mt-30">
                                         <a class="cart-button" href="{{ route('cart.index') }}">View Cart</a>
                                     </li>
                                     <li>
-                                        <a class="cart-button" href="checkout.html">Checkout</a>
+                                        <a class="cart-button" href="{{ route('checkout') }}">Checkout</a>
                                     </li>
                                 </ul>
                             </li>

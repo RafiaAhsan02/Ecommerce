@@ -116,7 +116,7 @@
 
                                     <div class="cart-button-wrapper d-flex justify-content-between mt-4">
                                         <a href="{{ route('products') }}" class="btn btn-secondary">Continue Shopping</a>
-                                        <a href="checkout.html" class="btn btn-secondary dark align-self-end">Checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn btn-secondary dark align-self-end">Checkout</a>
                                     </div>
                                     
                                 </div>

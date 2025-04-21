@@ -9,6 +9,7 @@ class CartController extends Controller
 {
     public function index()
     {
+        // session()->forget(keys: 'cart');
         $cartItems = session()->get('cart', []);
         return view('frontend.cart.index', compact('cartItems'));
     }
@@ -67,7 +68,7 @@ class CartController extends Controller
 
     public function clear()
     {
-        session()->forget('cart');
+        session()->forget(keys: 'cart');
         notyf()->success('Cart cleared successfully.');
         return redirect()->back();
     }
