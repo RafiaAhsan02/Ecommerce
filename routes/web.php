@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\HomeProductController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -43,6 +44,11 @@ Route::prefix('admin/')->as('admin.')->middleware(['auth', 'user-access:admin'])
     Route::resource('slider', SliderController::class);
     Route::get('/slider/trash/{id}', [SliderController::class, 'trash'])->name('slider.trash');
     Route::get('/slider/restore/{id}', [SliderController::class, 'restore'])->name('slider.restore');
+
+    /* customer orders */
+    Route::get('orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('orders/approved', [OrderController::class, 'approvedOrder'])->name('approved.orders');
+    Route::get('orders/show/{id}', [OrderController::class, 'showOrder'])->name('show.orders');
 });
 
 
@@ -61,11 +67,11 @@ Route::get('category/{category}/{subCategory?}', [HomeProductController::class, 
 
 /* Cart Routes */
 Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
-  Route::get('/', [CartController::class, 'index'])->name('index');
-  Route::post('/add', [CartController::class, 'store'])->name('add');
-  Route::post('/update', [CartController::class, 'update'])->name('update');
-  Route::delete('/{product_id}', [CartController::class, 'destroy'])->name('destroy');
-  Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
+    Route::get('/', [CartController::class, 'index'])->name('index');
+    Route::post('/add', [CartController::class, 'store'])->name('add');
+    Route::post('/update', [CartController::class, 'update'])->name('update');
+    Route::delete('/{product_id}', [CartController::class, 'destroy'])->name('destroy');
+    Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
 
 /* SSLcommerz Routes */

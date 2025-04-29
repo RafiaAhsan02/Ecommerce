@@ -65,6 +65,33 @@
                         <p>Slider</p>
                     </a>
                 </li>
+                
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#tables">
+                        <i class="fas fa-table"></i>
+                        <p>Orders</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="tables">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.orders') }}">
+                                    <span class="sub-item">Pending Orders</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.approved.orders') }}">
+                                    <span class="sub-item">Approved Orders</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.show.orders') }}">
+                                    <span class="sub-item">Processing Orders</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
             </ul>
         </div>
