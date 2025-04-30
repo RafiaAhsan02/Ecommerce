@@ -37,7 +37,7 @@
 
                                     @if (Auth::user()->type == "user")
                                         {{-- insert user profile/dashboard here --}}
-                                        <a class="nav-link text-warning" href="#" target="_blank"
+                                        <a class="nav-link text-warning" href="{{ route('user.dashboard') }}"
                                                 role="button" aria-haspopup="true" aria-expanded="false" v-pre>Dashboard</a>
                                             <span class="text-warning"> | </span>
                                     

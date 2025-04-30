@@ -25,6 +25,7 @@ Auth::routes();
 /* All Normal Users Routes List */
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* w/o login*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
+    Route::get('/user/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
     /* Checkout Routes */
     // Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* requires user login */
     Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');

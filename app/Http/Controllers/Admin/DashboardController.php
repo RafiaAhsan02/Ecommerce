@@ -11,5 +11,10 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard');
     }
+    
+    public function userDashboard()
+    {
+        return view('frontend.userdashboard');
+    }
 
 }

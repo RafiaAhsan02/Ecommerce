@@ -85,7 +85,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('admin.show.orders') }}">
+                                <a href="">
+                                    {{-- href? {{ route('admin.show.orders', $order->id) }} --}}
                                     <span class="sub-item">Processing Orders</span>
                                 </a>
                             </li>

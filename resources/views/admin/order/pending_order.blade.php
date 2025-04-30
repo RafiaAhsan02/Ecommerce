@@ -49,7 +49,7 @@
                                     <td>{{ $order->payment_method }}</td>
                                     <td>{{ $order->payment_status }}</td>
                                     <td>
-                                        <a href="{{ route('admin.show.orders', $order->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('admin.show.orders', $order->id) }}" class="btn btn-primary btn-sm">View</a>
                                     </td>
                                 @empty
                                 @endforelse
