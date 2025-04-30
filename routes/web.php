@@ -6,13 +6,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\AjaxController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\HomeProductController;
 use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\subCategoryController;
+use App\Http\Controllers\SSLCommerzPaymentController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -76,7 +77,7 @@ Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
 });
 
 /* SSLcommerz Routes */
-// Route::post('/success', [SslCommerzPaymentController::class, 'success'])->name('payment.success');
-// Route::post('/fail', [SslCommerzPaymentController::class, 'fail'])->name('payment.failed');
-// Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel'])->name('payment.cancel');
-// Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn'])->name('payment.ipn');
+Route::post('/success', [SSLCommerzPaymentController::class, 'success'])->name('payment.success');
+Route::post('/fail', [SSLCommerzPaymentController::class, 'fail'])->name('payment.failed');
+Route::post('/cancel', [SSLCommerzPaymentController::class, 'cancel'])->name('payment.cancel');
+Route::post('/ipn', [SSLCommerzPaymentController::class, 'ipn'])->name('payment.ipn');
