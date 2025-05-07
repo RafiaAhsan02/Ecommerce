@@ -16,6 +16,8 @@ class CheckoutController extends Controller
 
     public function checkoutStore(Request $request)
     {
+        // $cartItems = session()->get('cart', []);
+        // return $cartItems;
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
@@ -51,10 +53,12 @@ class CheckoutController extends Controller
                 'shipping_address' => $request->address
             ]);
 
-            foreach ($cartItems as $cart) {
-                $order->products()->attach($cart->id, [
-                    'quantity' => $cart->quantity,
-                    'price' => $cart->price,
+
+
+            foreach ($cartItems as $productId => $cart) {
+                $order->products()->attach($productId, [
+                    'quantity' => $cart['quantity'],
+                    'price' => $cart['price'],
                 ]);
             }
 
@@ -148,6 +152,5 @@ class CheckoutController extends Controller
             //     $payment_options = array();
             // }
         }
-
     }
 }

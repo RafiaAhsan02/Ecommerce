@@ -24,11 +24,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Auth::routes();
 
 /* All Normal Users Routes List */
-Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* w/o login*/
+// Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* w/o login*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/user/dashboard', [DashboardController::class, 'userDashboard'])->name('user.dashboard');
     /* Checkout Routes */
-    // Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout'); /* requires user login */
+    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
 });
 
@@ -72,7 +72,7 @@ Route::group(['as' => 'cart.', 'prefix' => 'cart'], function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'store'])->name('add');
     Route::post('/update', [CartController::class, 'update'])->name('update');
-    Route::delete('/{product_id}', [CartController::class, 'destroy'])->name('destroy');
+    Route::delete('/delete', [CartController::class, 'destroy'])->name('destroy');
     Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
 

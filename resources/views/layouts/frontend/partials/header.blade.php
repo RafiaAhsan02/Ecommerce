@@ -153,12 +153,8 @@
                                                         </span>&#2547;{{ number_format($item['price']) }}</span>
                                                 </div>
 
-                                                <form action="{{ route('cart.destroy', $key) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="product_id" value="{{ $key }}">
-                                                        <button type="submit" class="del-icon" title="Remove item" onclick="return confirm('Are you sure you want to remove this item from cart?')"><i class="fa fa-times-circle"></i></button>
-                                                </form>
+                                                <button type="submit" class="del-icon" data-id="{{ $key }}" title="Remove item" onclick="return removeItem(event, {{ $key }})"><i class="fa fa-times-circle"></i></button>
+
                                             </li>
                                             <hr>
                                         @empty
@@ -257,3 +253,29 @@
         </div>
     </div>
 </header>
+
+@push('custom_js')
+    <script>
+    /* delete item from cart */
+        function removeItem(e, id) {
+            e.preventDefault();
+            let itemId = id;
+            if (confirm("Are you sure to remove this item?")) {
+                $.ajax({
+                    url: "{{ route('cart.destroy') }}",
+                    method: "DELETE",
+                    data: {
+                        product_id: itemId,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.success == true) {
+                            toastr.success(response.message, 'Success')
+                            window.location.reload();
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+@endpush

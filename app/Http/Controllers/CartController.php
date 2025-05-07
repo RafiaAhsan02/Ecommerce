@@ -44,9 +44,11 @@ class CartController extends Controller
             $cart[$request->product_id]['quantity'] = $request->quantity_increment ? $request->quantity_increment : $request->quantity_decrement;
 
             session()->put('cart', $cart);
-            
-            notyf()->success('Cart updated successfully.');
-            return redirect()->back();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart updated successfully.',
+            ]);
         }
     }
 
@@ -60,8 +62,10 @@ class CartController extends Controller
 
                 session()->put('cart', $cart);
             }
-            notyf()->success('Removed from cart successfully.');
-            return redirect()->back();
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed from cart successfully.',
+            ]);
         }
 
     }
